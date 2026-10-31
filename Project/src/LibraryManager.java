@@ -4,6 +4,10 @@ public class LibraryManager {
 
     private ArrayList<Book> bookList;
 
+    public boolean isValid(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
     public LibraryManager() {
         bookList = BookFileManager.loadBooks();
     }

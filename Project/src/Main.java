@@ -27,30 +27,31 @@ public class Main {
 
             choice = Integer.parseInt(sc.nextLine());
 
+            String id, title, author, category;
             switch (choice) {
 
                 case 1:
                     System.out.print("Book ID: ");
-                    String id = sc.nextLine();
+                    id = sc.nextLine();
 
                     System.out.print("Title: ");
-                    String title = sc.nextLine();
+                    title = sc.nextLine();
 
                     System.out.print("Author: ");
-                    String author = sc.nextLine();
+                    author = sc.nextLine();
 
                     System.out.print("Category: ");
-                    String category = sc.nextLine();
+                    category = sc.nextLine();
 
-                    if (Validator.isValid(id)
-                            && Validator.isValid(title)
-                            && Validator.isValid(author)
-                            && Validator.isValid(category)) {
+                    if (manager.isValid(id)
+                            && manager.isValid(title)
+                            && manager.isValid(author)
+                            && manager.isValid(category)) {
 
                         manager.addBook(
                                 new Book(id, title, author, category));
                     } else {
-                        System.out.println("Invalid input.");
+                        System.out.println("\nInvalid input.");
                     }
                     break;
 
