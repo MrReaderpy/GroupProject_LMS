@@ -27,6 +27,8 @@ public class Main {
 
             choice = Integer.parseInt(sc.nextLine());
 
+            System.out.println("\n");
+
             String id, title, author, category;
             switch (choice) {
 
