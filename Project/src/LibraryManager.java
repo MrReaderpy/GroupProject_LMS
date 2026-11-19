@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class LibraryManager {
 
-    private ArrayList<Book> bookList;
+    private final ArrayList<Book> bookList;
 
     public boolean isValid(String value) {
         return value != null && !value.trim().isEmpty();

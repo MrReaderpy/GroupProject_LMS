@@ -120,9 +120,9 @@ public class Main {
 
                 case 4:
                     System.out.print("Search: ");
-                    if (!manager.findBook(sc.nextLine())){
-                        break;
-                    }
+                    manager.findBook(sc.nextLine());
+                    break;
+
 
                 case 5:
                     manager.viewAllBooks();
