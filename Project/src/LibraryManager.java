@@ -13,19 +13,27 @@ public class LibraryManager {
     }
 
     public void addBook(Book book) {
-
-        if (findBook(book.getBookId()) != null) {
-            System.out.println("Duplicate Book ID!");
-            return;
-        }
-
         bookList.add(book);
         System.out.println("Book added successfully.");
     }
 
-    public Book findBook(String id) {
+    public boolean findBook(String title) {
+        boolean found = false;
         for (Book book : bookList) {
-            if (book.getBookId().equalsIgnoreCase(id)) {
+            if (book.getBookTitle().toLowerCase().contains(title.toLowerCase())) {
+                book.display();
+                found = true;
+            }
+        }
+        if (!found){
+            System.out.println("Book not found");
+        }
+        return found;
+    }
+
+    public Book findBookId(String ID){
+        for (Book book : bookList) {
+            if (ID.equals(book.getBookId())) {
                 return book;
             }
         }
@@ -33,7 +41,7 @@ public class LibraryManager {
     }
 
     public void deleteBook(String id) {
-        Book book = findBook(id);
+        Book book = findBookId(id);
 
         if (book != null) {
             bookList.remove(book);
@@ -44,44 +52,39 @@ public class LibraryManager {
     }
 
     public void updateBook(String id, String title,
-                           String author, String category) {
+                           String author, String category, String ID) {
 
-        Book book = findBook(id);
+        Book book = findBookId(id);
 
         if (book != null) {
             book.setTitle(title);
             book.setAuthor(author);
             book.setCategory(category);
+            book.setBookId(ID);
             System.out.println("Book updated.");
         } else {
             System.out.println("Book not found.");
         }
     }
 
-    public void issueBook(String id) {
+    public void borrowBook(String id) {
 
-        Book book = findBook(id);
+        Book book = findBookId(id);
 
-        if (book == null) {
-            System.out.println("Book not found.");
-        } else if (book.getStatus().equals("AVAILABLE")) {
-            book.setStatus("ISSUED");
-            System.out.println("Book issued successfully.");
+        if (book.getStatus().equals("AVAILABLE")) {
+            book.setStatus("Borrowed");
+            System.out.println("Book borrowed successfully.");
         } else {
-            System.out.println("Book already issued.");
+            System.out.println("Book already borrowed.");
         }
     }
 
     public void returnBook(String id) {
 
-        Book book = findBook(id);
+        Book book = findBookId(id);
 
-        if (book == null) {
-            System.out.println("Book not found.");
-        } else {
-            book.setStatus("AVAILABLE");
-            System.out.println("Book returned successfully.");
-        }
+        book.setStatus("AVAILABLE");
+        System.out.println("Book returned successfully.");
     }
 
     public void viewAllBooks() {
@@ -98,10 +101,5 @@ public class LibraryManager {
 
     public void saveRecords() {
         BookFileManager.saveBooks(bookList);
-    }
-
-    public void loadRecords() {
-        bookList = BookFileManager.loadBooks();
-        System.out.println("Records loaded.");
     }
 }

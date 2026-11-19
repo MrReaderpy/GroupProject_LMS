@@ -10,7 +10,6 @@ public class BookFileManager {
             for (Book book : books) {
                 writer.println(book);
             }
-            System.out.println("Records saved successfully.");
         } catch (IOException e) {
             System.out.println("Error saving file.");
         }

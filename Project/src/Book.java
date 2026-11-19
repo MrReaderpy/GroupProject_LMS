@@ -21,6 +21,8 @@ public class Book {
         return status;
     }
 
+    public String getBookTitle() {return title;}
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -36,6 +38,8 @@ public class Book {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void setBookId (String bookId){this.bookId = bookId;}
 
     @Override
     public String toString() {

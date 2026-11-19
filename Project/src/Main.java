@@ -10,22 +10,27 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("\n================================");
-            System.out.println(" LIBRARY MANAGEMENT SYSTEM");
-            System.out.println("================================");
-            System.out.println("1. Add Book");
-            System.out.println("2. Update Book");
-            System.out.println("3. Delete Book");
-            System.out.println("4. Search Book");
-            System.out.println("5. View All Books");
-            System.out.println("6. Issue Book");
-            System.out.println("7. Return Book");
-            System.out.println("8. Save Records");
-            System.out.println("9. Load Records");
-            System.out.println("0. Exit");
-            System.out.print("Enter choice: ");
+            System.out.println("\t\t   ____________________\t\t\t\t    ================================");
+            System.out.println("\t\t  /                    \\\\ \t\t\t\t   LIBRARY MANAGEMENT SYSTEM");
+            System.out.println("\t\t /    *  LIBRARY  *     \\\\ \t\t\t\t================================");
+            System.out.println("\t\t/________________________\\\\ \t\t\t1. Add Book               __________________");
+            System.out.println("\t\t  | [==] [==] [==] [==] |\t\t\t\t2. Update Book           /__________________/|");
+            System.out.println("\t\t  | [==] [==] [==] [==] |\t\t\t\t3. Delete Book          |                  | |");
+            System.out.println("\t\t  |                     |\t\t\t\t4. Search Book          | ================ | |");
+            System.out.println("\t\t  |                     |\t\t\t\t5. View All Books       |     J A V A      | |");
+            System.out.println("\t\t  |        ____         |\t\t\t\t6. Borrow Book          | ================ | |");
+            System.out.println("\t\t  |       |    |        |\t\t\t\t7. Return Book          |                  | |");
+            System.out.println("\t\t  |       |    |        |\t\t\t\t0. Exit                 |__________________|/");
+            System.out.print("\t\t ===========================\t\t\tEnter choice: ");
 
-            choice = Integer.parseInt(sc.nextLine());
+            while (true){
+                try {
+                    choice = Integer.parseInt(sc.nextLine());
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.print("\nInvalid input. Must be number!\nChoice: ");
+                }
+            }
 
             System.out.println("\n");
 
@@ -35,6 +40,12 @@ public class Main {
                 case 1:
                     System.out.print("Book ID: ");
                     id = sc.nextLine();
+                    Book bookid = manager.findBookId(id);
+
+                    if (bookid != null && !manager.isValid(id)) {
+                        System.out.println("You entered an empty string or used an existing ID!");
+                        break;
+                    }
 
                     System.out.print("Title: ");
                     title = sc.nextLine();
@@ -50,16 +61,24 @@ public class Main {
                             && manager.isValid(author)
                             && manager.isValid(category)) {
 
-                        manager.addBook(
-                                new Book(id, title, author, category));
+                        manager.addBook(new Book(id, title, author, category));
+                        manager.saveRecords();
                     } else {
-                        System.out.println("\nInvalid input.");
+                        System.out.println("\nInvalid input.\nYou entered an empty string!");
                     }
                     break;
 
                 case 2:
-                    System.out.print("Book ID: ");
+                    System.out.print("Search: ");
+                    if (!manager.findBook(sc.nextLine())){
+                        break;
+                    }
+
+                    System.out.print("What book do you want to update? \nBook ID: ");
                     id = sc.nextLine();
+
+                    System.out.print("New ID: ");
+                    String ID = sc.nextLine();
 
                     System.out.print("New Title: ");
                     title = sc.nextLine();
@@ -70,45 +89,75 @@ public class Main {
                     System.out.print("New Category: ");
                     category = sc.nextLine();
 
-                    manager.updateBook(id, title, author, category);
+                    if (manager.isValid(ID)
+                            && manager.isValid(title)
+                            && manager.isValid(author)
+                            && manager.isValid(category)) {
+
+                        manager.updateBook(id, title, author, category, ID);
+                        manager.saveRecords();
+                        break;
+                    } else {
+                        System.out.println("\nInvalid input.");
+                    }
                     break;
 
                 case 3:
-                    System.out.print("Book ID: ");
-                    manager.deleteBook(sc.nextLine());
+                    System.out.print("Search: ");
+                    if (!manager.findBook(sc.nextLine())){
+                        break;
+                    }
+
+                    System.out.print("What book do you want to delete? \nBook ID: ");
+                    String BookID3 = sc.nextLine();
+                    if (manager.findBookId(BookID3) == null){
+                        System.out.println("Wrong ID.");
+                        break;
+                    }
+                    manager.deleteBook(BookID3);
+                    manager.saveRecords();
                     break;
 
                 case 4:
-                    System.out.print("Book ID: ");
-                    Book book = manager.findBook(sc.nextLine());
-
-                    if (book != null) {
-                        book.display();
-                    } else {
-                        System.out.println("Book not found.");
+                    System.out.print("Search: ");
+                    if (!manager.findBook(sc.nextLine())){
+                        break;
                     }
-                    break;
 
                 case 5:
                     manager.viewAllBooks();
                     break;
 
                 case 6:
-                    System.out.print("Book ID: ");
-                    manager.issueBook(sc.nextLine());
-                    break;
+                    System.out.print("Search: ");
+                    if (!manager.findBook(sc.nextLine())){
+                        break;
+                    }
 
-                case 7:
-                    System.out.print("Book ID: ");
-                    manager.returnBook(sc.nextLine());
-                    break;
-
-                case 8:
+                    System.out.print("What book do you want to borrow?\nBook ID: ");
+                    String BookID6 = sc.nextLine();
+                    if (manager.findBookId(BookID6) == null){
+                        System.out.println("Wrong ID.");
+                        break;
+                    }
+                    manager.borrowBook(BookID6);
                     manager.saveRecords();
                     break;
 
-                case 9:
-                    manager.loadRecords();
+                case 7:
+                    System.out.print("Search: ");
+                    if (!manager.findBook(sc.nextLine())){
+                        break;
+                    }
+
+                    System.out.print("What book do you want to return?\nBook ID: ");
+                    String BookID7 = sc.nextLine();
+                    if (manager.findBookId(BookID7) == null){
+                        System.out.println("Wrong ID.");
+                        break;
+                    }
+                    manager.returnBook(BookID7);
+                    manager.saveRecords();
                     break;
 
                 case 0:
