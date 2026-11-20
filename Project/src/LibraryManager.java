@@ -12,8 +12,36 @@ public class LibraryManager {
         bookList = BookFileManager.loadBooks();
     }
 
+    public String ValidLength(String Title){
+        String shortTitle;
+        if (Title.length() > 14){
+            shortTitle = Title.substring(0,13) + ".";
+        } else {
+            shortTitle = Title;
+        }
+        return shortTitle;
+    }
+
+    public static final String ForBook = "\u001B[38;2;205;133;63m";
+    public static final String Reset = "\u001B[0m";
+    public static final String Cyan = "\u001B[36m";
+    public static final String White = "\u001B[37m";
+
     public void addBook(Book book) {
         bookList.add(book);
+        System.out.print(ForBook + "    __________________   __________________\n");
+        System.out.print(ForBook + ".-"+White+"/|                  \\ /                  |\\" + ForBook +"-.\n" );
+        System.out.print(ForBook + "|"+White+"|||                   |                   |||"+ForBook+"|\n" );
+        System.out.printf(ForBook +  "|"+White+"|||"+Reset+"  ID: %-10.10s  "+White+" |"+Reset+" %-14.14s "+White+"   |||"+ForBook+"|%n", book.getBookId() , ValidLength(book.getBookTitle()));
+        System.out.print(ForBook +   "|"+White+"|||                   |                   |||"+ForBook+"|\n" );
+        System.out.print(ForBook +   "|"+White+"|||                   |                   |||"+ForBook+"|\n");
+        System.out.print(ForBook +   "|"+White+"||| "+Reset+" Category:   "+White+"     |"+Reset+" Author:  "+White+"         |||"+ForBook+"|\n" );
+        System.out.printf(ForBook +  "|"+White+"||| "+Reset+" %-14.14s "+White+"  | "+Reset+"%-14.14s  "+White+"  |||"+ForBook+"|%n", ValidLength(book.getCategory()), ValidLength(book.getAuthor()));
+        System.out.print(ForBook +   "|"+White+"|||                   |                   |||"+ForBook+"|\n" );
+        System.out.print(ForBook +   "|"+White+"|||                   |                   |||"+ForBook+"|\n" );
+        System.out.print(ForBook +   "|"+White+"|||__________________ | __________________|||"+ForBook+"|\n" );
+        System.out.print(ForBook +   "|"+White+"|/===================\\|/===================\\|" + ForBook +"|\n");
+        System.out.print(ForBook +   "`--------------------~___~-------------------''\n" +Cyan);
         System.out.println("Book added successfully.");
     }
 

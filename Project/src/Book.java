@@ -23,6 +23,10 @@ public class Book {
 
     public String getBookTitle() {return title;}
 
+    public String getCategory() {return category;}
+
+    public String getAuthor() {return author;}
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -60,20 +64,5 @@ public class Book {
         System.out.println("Category: " + category);
         System.out.println("Status: " + status);
         System.out.println("-------------------------");
-//        System.out.println("    __________________   __________________\n" +
-//                ".-/|                  \\ /                  |\\-.\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||                   |       ~~*~~       ||||\n" +
-//                "||||    --==*==--      |                   ||||\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||                   |     --==*==--     ||||\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||                   |                   ||||\n" +
-//                "||||__________________ | __________________||||\n" +
-//                "||/===================\\|/===================\\||\n" +
-//                "`--------------------~___~-------------------''\n");
     }
 }

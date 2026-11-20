@@ -2,6 +2,18 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static final String Reset = "\u001B[0m";
+
+    public static final String Green = "\u001B[32m";
+    public static final String Blue = "\u001B[34m";
+    public static final String Purple = "\u001B[35m";
+    public static final String Cyan = "\u001B[36m";
+    public static final String Brown = "\u001B[38;2;181;101;29m";
+    public static final String White = "\u001B[37m";
+    public static final String SvetloBej = "\u001B[38;2;222;184;135m";
+    public static final String Derevo = "\u001B[38;2;139;69;19m";
+    public static final String ForBook = "\u001B[38;2;205;133;63m";
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -10,18 +22,18 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("\t\t   ____________________\t\t\t\t    ================================");
-            System.out.println("\t\t  /                    \\\\ \t\t\t\t   LIBRARY MANAGEMENT SYSTEM");
-            System.out.println("\t\t /    *  LIBRARY  *     \\\\ \t\t\t\t================================");
-            System.out.println("\t\t/________________________\\\\ \t\t\t1. Add Book               __________________");
-            System.out.println("\t\t  | [==] [==] [==] [==] |\t\t\t\t2. Update Book           /__________________/|");
-            System.out.println("\t\t  | [==] [==] [==] [==] |\t\t\t\t3. Delete Book          |                  | |");
-            System.out.println("\t\t  |                     |\t\t\t\t4. Search Book          | ================ | |");
-            System.out.println("\t\t  |                     |\t\t\t\t5. View All Books       |     J A V A      | |");
-            System.out.println("\t\t  |        ____         |\t\t\t\t6. Borrow Book          | ================ | |");
-            System.out.println("\t\t  |       |    |        |\t\t\t\t7. Return Book          |                  | |");
-            System.out.println("\t\t  |       |    |        |\t\t\t\t0. Exit                 |__________________|/");
-            System.out.print("\t\t ===========================\t\t\tEnter choice: ");
+            System.out.println(Brown + "\t\t   ____________________\t\t\t\t  "+Cyan+"  ================================");
+            System.out.println(Brown + "\t\t  /                    \\\\ \t\t\t\t  "+Cyan+" LIBRARY MANAGEMENT SYSTEM");
+            System.out.println(Brown + "\t\t /"+Purple+"    *  LIBRARY  * "+Brown+"    \\\\ \t\t\t\t"+Cyan+"================================");
+            System.out.println(Brown + "\t\t/________________________\\\\ \t\t\t"+Cyan+"1. Add Book               "+ForBook+"__________________");
+            System.out.println(SvetloBej + "\t\t  |"+Blue+" [==] [==] [==] [==]"+SvetloBej+" |\t\t\t\t"+Cyan+"2. Update Book    "+ForBook+"       /__________________/|");
+            System.out.println(SvetloBej + "\t\t  |"+Blue+" [==] [==] [==] [==]"+SvetloBej+" |\t\t\t\t"+Cyan+"3. Delete Book     "+ForBook+"     |                  | |");
+            System.out.println(SvetloBej + "\t\t  |                     |\t\t\t\t"+Cyan+"4. Search Book        "+ForBook+"  |"+White+" ================"+ForBook+" | |");
+            System.out.println(SvetloBej + "\t\t  |                     |\t\t\t\t"+Cyan+"5. View All Books      "+ForBook+" | "+Reset+"    J A V A     "+ForBook+" | |");
+            System.out.println(SvetloBej + "\t\t  |   "+Derevo+"     ____    "+SvetloBej+"     |\t\t\t\t"+Cyan+"6. Borrow Book   "+ForBook+"       |"+White+" ================"+ForBook+" | |");
+            System.out.println(SvetloBej + "\t\t  |   "+Derevo+"    |    |   "+SvetloBej+"     |\t\t\t\t"+Cyan+"7. Return Book    "+ForBook+"      |                  | |");
+            System.out.println(SvetloBej + "\t\t  |   "+Derevo+"    |    |   "+SvetloBej+"     |\t\t\t\t"+Cyan+"0. Exit            "+ForBook+"     |__________________|/");
+            System.out.print(Green + "\t\t ===========================\t\t\t"+Cyan+"Enter choice: " + Cyan);
 
             while (true){
                 try {
@@ -42,8 +54,11 @@ public class Main {
                     id = sc.nextLine();
                     Book bookid = manager.findBookId(id);
 
-                    if (bookid != null && !manager.isValid(id)) {
+                    if (bookid != null || !manager.isValid(id)) {
                         System.out.println("You entered an empty string or used an existing ID!");
+                        break;
+                    } else if (id.length() > 10) {
+                        System.out.println("The ID must be less than 11!");
                         break;
                     }
 
@@ -79,6 +94,10 @@ public class Main {
 
                     System.out.print("New ID: ");
                     String ID = sc.nextLine();
+                    if (ID.length() > 10) {
+                    System.out.println("The ID must be less than 11!");
+                    break;
+                }
 
                     System.out.print("New Title: ");
                     title = sc.nextLine();
